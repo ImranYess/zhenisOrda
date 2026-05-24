@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- PAGE TITLE — change as needed -->
+<title>Жүйелі Даму Платформасы</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Cormorant Garamond: editorial luxury display. Jost: clean modern body -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* ==============================
+     DESIGN TOKENS
+  ============================== */
+  :root {
+    --bg:          #0d0c0b;
+    --bg-card:     #131210;
+    --bg-elevated: #181611;
+    --gold:        #c9a84c;
+    --gold-light:  #e2c27a;
+    --gold-dim:    rgba(201,168,76,0.18);
+    --gold-line:   rgba(201,168,76,0.32);
+    --cream:       #f0e8d8;
+    --cream-dim:   rgba(240,232,216,0.55);
+    --cream-muted: rgba(240,232,216,0.35);
+    --white:       #ffffff;
+    --radius-sm:   8px;
+    --radius-md:   14px;
+    --radius-lg:   22px;
+    --ff-display:  'Cormorant Garamond', Georgia, serif;
+    --ff-body:     'Jost', sans-serif;
+    --transition:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ==============================
+     RESET & BASE
+  ============================== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--ff-body);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.65;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* subtle grain overlay for depth */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.45;
+  }
+
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ==============================
+     LAYOUT UTILITIES
+  ============================== */
+  .wrap {
+    width: 100%;
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: 22px;
+  }
+
+  section { position: relative; z-index: 1; }
+
+  /* Gold hairline divider */
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+    margin: 0 auto;
+  }
+
+  /* ==============================
+     FADE-IN REVEAL ANIMATION
+  ============================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ==============================
+     HEADER / NAV
+  ============================== */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13,12,11,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--gold-line);
+  }
+
+  .logo {
+    font-family: var(--ff-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  /* ==============================
+     HERO
+  ============================== */
+  .hero {
+    padding-top: 112px;
+    padding-bottom: 64px;
+    text-align: center;
+  }
+
+  .hero__eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-line);
+    border-radius: 100px;
+    padding: 5px 16px;
+    margin-bottom: 32px;
+  }
+
+  /* ==============================
+     MAIN HEADING — change text inside the tag below
+  ============================== */
+  .hero__title {
+    font-family: var(--ff-display);
+    font-size: clamp(2rem, 8vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+  }
+
+  .hero__title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero__sub {
+    font-size: clamp(0.92rem, 3.5vw, 1.05rem);
+    color: var(--cream-dim);
+    max-width: 420px;
+    margin: 0 auto 40px;
+    line-height: 1.75;
+  }
+
+  /* decorative gold glow blob behind hero text */
+  .hero__glow {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 340px;
+    height: 340px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.09) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* ==============================
+     VIDEO BLOCK
+  ============================== */
+  .video-section {
+    padding-bottom: 72px;
+  }
+
+  .video-label {
+    text-align: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+
+  .video-wrapper {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--gold-line);
+    background: var(--bg-card);
+    /* gold glow shadow */
+    box-shadow: 0 0 40px rgba(201,168,76,0.1), 0 8px 32px rgba(0,0,0,0.55);
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ==============================
+     VIDEO — replace the src below with your actual video URL or embed
+     For YouTube embed: replace the entire iframe src
+     For self-hosted MP4: uncomment the <video> tag in HTML and remove iframe
+  ============================== */
+  .video-wrapper iframe,
+  .video-wrapper video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* video placeholder when no src yet */
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: var(--cream-muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+  }
+
+  .video-placeholder svg {
+    width: 52px;
+    height: 52px;
+    opacity: 0.5;
+  }
+
+  /* ==============================
+     TRUST STRIP (3 pillars)
+  ============================== */
+  .trust-section {
+    padding-bottom: 72px;
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .trust-card {
+    background: var(--bg-card);
+    border: 1px solid var(--gold-line);
+    border-radius: var(--radius-md);
+    padding: 24px 22px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+
+  .trust-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 22px rgba(201,168,76,0.12);
+  }
+
+  .trust-icon {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--gold-line);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--gold);
+  }
+
+  .trust-title {
+    font-family: var(--ff-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .trust-body {
+    font-size: 0.82rem;
+    color: var(--cream-muted);
+    line-height: 1.6;
+  }
+
+  /* ==============================
+     PHONE FORM
+  ============================== */
+  .form-section {
+    padding-bottom: 80px;
+  }
+
+  .form-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--gold-line);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px 32px;
+    box-shadow: 0 0 60px rgba(201,168,76,0.07);
+  }
+
+  .form-headline {
+    font-family: var(--ff-display);
+    font-size: clamp(1.4rem, 5vw, 1.9rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .form-desc {
+    font-size: 0.84rem;
+    color: var(--cream-muted);
+    text-align: center;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .field-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
+  .field-wrap input[type="tel"] {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--gold-line);
+    border-radius: var(--radius-md);
+    color: var(--cream);
+    font-family: var(--ff-body);
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 16px 18px;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    -webkit-appearance: none;
+  }
+
+  .field-wrap input[type="tel"]::placeholder {
+    color: var(--cream-muted);
+    font-size: 0.9rem;
+  }
+
+  .field-wrap input[type="tel"]:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  }
+
+  .field-wrap input[type="tel"].error {
+    border-color: #c0605a;
+    box-shadow: 0 0 0 3px rgba(192,96,90,0.12);
+  }
+
+  .field-error {
+    font-size: 0.75rem;
+    color: #d97070;
+    margin-top: 5px;
+    padding-left: 4px;
+    display: none;
+  }
+
+  .field-error.visible { display: block; }
+
+  /* CTA button */
+  .btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, #c9a84c 0%, #e2c27a 60%, #c9a84c 100%);
+    background-size: 200% auto;
+    color: #0d0c0b;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: var(--ff-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 17px 24px;
+    cursor: pointer;
+    transition: background-position var(--transition), box-shadow var(--transition), transform 0.15s ease;
+    -webkit-appearance: none;
+  }
+
+  .btn-primary:hover {
+    background-position: right center;
+    box-shadow: 0 6px 28px rgba(201,168,76,0.35);
+  }
+
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .privacy-note {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--cream-muted);
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  /* ==============================
+     SUCCESS STATE
+  ============================== */
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  .success-state.visible { display: block; }
+  .form-inputs.hidden { display: none; }
+
+  .success-icon {
+    font-size: 2.4rem;
+    margin-bottom: 16px;
+  }
+
+  .success-title {
+    font-family: var(--ff-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .success-sub {
+    font-size: 0.85rem;
+    color: var(--cream-muted);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  /* Telegram CTA button */
+  .btn-tg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: var(--radius-md);
+    color: var(--gold-light);
+    font-family: var(--ff-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 16px 24px;
+    cursor: pointer;
+    transition: background var(--transition), box-shadow var(--transition), color var(--transition);
+    text-decoration: none;
+  }
+
+  .btn-tg:hover {
+    background: var(--gold-dim);
+    box-shadow: 0 4px 22px rgba(201,168,76,0.2);
+    color: var(--cream);
+  }
+
+  .btn-tg svg { flex-shrink: 0; }
+
+  /* ==============================
+     FAQ
+  ============================== */
+  .faq-section {
+    padding-bottom: 80px;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--ff-display);
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+    font-weight: 700;
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 40px;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--gold-line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+
+  .faq-item.open { border-color: rgba(201,168,76,0.5); }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--cream);
+    font-family: var(--ff-body);
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-align: left;
+    padding: 18px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    line-height: 1.45;
+    -webkit-appearance: none;
+  }
+
+  .faq-question:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--gold);
+    transition: transform var(--transition);
+  }
+
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .faq-answer-inner {
+    padding: 0 20px 18px;
+    font-size: 0.84rem;
+    color: var(--cream-muted);
+    line-height: 1.7;
+  }
+
+  /* ==============================
+     FOOTER
+  ============================== */
+  footer {
+    border-top: 1px solid var(--gold-line);
+    padding: 28px 22px;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--cream-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ==============================
+     DESKTOP ADAPTATIONS (≥ 640px)
+  ============================== */
+  @media (min-width: 640px) {
+    .hero { padding-top: 130px; padding-bottom: 80px; }
+    .trust-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .trust-card { flex-direction: column; gap: 14px; }
+    .form-card { padding: 52px 48px 44px; }
+  }
+
+  @media (min-width: 900px) {
+    .wrap { max-width: 760px; }
+    .hero__title { font-size: 3.8rem; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ==============================
+     HEADER
+============================== -->
+<header>
+  <!-- LOGO TEXT — change as needed -->
+  <span class="logo">Жүйелі Даму</span>
+</header>
+
+<!-- ==============================
+     HERO
+============================== -->
+<section class="hero">
+  <div class="hero__glow"></div>
+  <div class="wrap">
+
+    <div class="hero__eyebrow reveal">Платформаға қош келдіңіз</div>
+
+    <!-- MAIN HEADING — change text here -->
+    <h1 class="hero__title reveal">
+      Сіз жай курсқа емес,<br />
+      <em>жүйелі даму ортасына</em> кірдіңіз.
+    </h1>
+
+    <!-- SUBHEADLINE — change text here -->
+    <p class="hero__sub reveal">
+      Ойлау, қаржы, бизнес және лидерлік бойынша<br />
+      саты-саты дамуға арналған платформа.
+    </p>
+
+    <div class="divider reveal"></div>
+  </div>
+</section>
+
+<!-- ==============================
+     VIDEO SECTION
+     REPLACE: change the iframe src to your YouTube/Vimeo embed URL
+     OR: remove the iframe and uncomment the <video> tag for self-hosted MP4
+============================== -->
+<section class="video-section">
+  <div class="wrap">
+    <p class="video-label reveal">Жүйені танып алыңыз</p>
+
+    <div class="video-wrapper reveal">
+
+      <!--
+        YOUTUBE EMBED — replace VIDEO_ID with your actual YouTube video ID
+        Example: https://www.youtube.com/embed/dQw4w9WgXcQ
+      -->
+      <iframe
+        src="about:blank"
+        data-src="https://www.youtube.com/embed/VIDEO_ID_HERE?rel=0&modestbranding=1&color=white"
+        title="Платформа туралы бейнероллик"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+
+      <!--
+        SELF-HOSTED MP4 — uncomment and set src to your video file URL
+        <video controls preload="metadata" poster="poster.jpg">
+          <source src="https://your-domain.com/video.mp4" type="video/mp4" />
+        </video>
+      -->
+
+      <!-- placeholder shown until iframe loads -->
+      <div class="video-placeholder" id="vidPlaceholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>Бейнероллик жүктелуде…</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     TRUST PILLARS
+============================== -->
+<section class="trust-section">
+  <div class="wrap">
+    <div class="trust-grid">
+
+      <!-- PILLAR 1 — change icon, title, body -->
+      <div class="trust-card reveal">
+        <div class="trust-icon">⬡</div>
+        <div>
+          <div class="trust-title">Жүйелі тәсіл</div>
+          <p class="trust-body">Хаотикалық мазмұн емес — нақты даму жолы мен реттелген модульдер.</p>
+        </div>
+      </div>
+
+      <!-- PILLAR 2 — change icon, title, body -->
+      <div class="trust-card reveal">
+        <div class="trust-icon">◈</div>
+        <div>
+          <div class="trust-title">Практикалық нәтиже</div>
+          <p class="trust-body">Теория емес, өмірде қолдануға болатын нақты дағдылар мен инструменттер.</p>
+        </div>
+      </div>
+
+      <!-- PILLAR 3 — change icon, title, body -->
+      <div class="trust-card reveal">
+        <div class="trust-icon">⟡</div>
+        <div>
+          <div class="trust-title">Қоғамдастық</div>
+          <p class="trust-body">Мақсаты бір адамдармен бірге дамитын кеңістік және тікелей байланыс.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     PHONE FORM + SUCCESS STATE
+============================== -->
+<section class="form-section" id="formSection">
+  <div class="wrap">
+    <div class="form-card">
+
+      <!-- FORM INPUTS STATE -->
+      <div class="form-inputs" id="formInputs">
+
+        <!-- FORM HEADLINE — change text here -->
+        <h2 class="form-headline">Ботқа қосылыңыз</h2>
+
+        <!-- FORM DESCRIPTION — change text here -->
+        <p class="form-desc">
+          Нөміріңізді енгізіңіз — біз сізге Telegram-бот арқылы<br />
+          бірінші қадамды жіберейік.
+        </p>
+
+        <div class="field-wrap">
+          <input
+            type="tel"
+            id="phoneInput"
+            placeholder="+7 (___) ___-__-__"
+            inputmode="tel"
+            autocomplete="tel"
+            maxlength="20"
+          />
+          <div class="field-error" id="phoneError">
+            Телефон нөмірін дұрыс енгізіңіз (+7 немесе 8 форматында)
+          </div>
+        </div>
+
+        <button class="btn-primary" id="submitBtn" onclick="handleSubmit()">
+          Жалғастыру →
+        </button>
+
+        <p class="privacy-note">
+          Нөміріңіз тек байланыс үшін қолданылады.<br />Спам жіберілмейді.
+        </p>
+      </div>
+
+      <!-- SUCCESS STATE (hidden until form submitted) -->
+      <div class="success-state" id="successState">
+        <div class="success-icon">✦</div>
+
+        <!-- SUCCESS TITLE — change text here -->
+        <h3 class="success-title">Рахмет!</h3>
+
+        <!-- SUCCESS SUBTITLE — change text here -->
+        <p class="success-sub">
+          Енді Telegram-ботқа өтіп,<br />жүйелі дамуды бастауға болады.
+        </p>
+
+        <!--
+          TELEGRAM BOT LINK — change href to your actual bot link
+          Format: https://t.me/YOUR_BOT_USERNAME  or  https://t.me/YOUR_BOT/PATH
+        -->
+        <a
+          href="https://t.me/zhenisOrdaFinanceBot/zhenis"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-tg"
+          id="tgLink"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/>
+          </svg>
+          Telegram-ботқа өту
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     FAQ
+============================== -->
+<section class="faq-section">
+  <div class="wrap">
+
+    <p class="section-label reveal">Жиі қойылатын сұрақтар</p>
+    <h2 class="section-title reveal">Сізде сұрақ бар ма?</h2>
+
+    <div class="faq-list">
+
+      <!--
+        FAQ ITEMS — change the question and answer text freely.
+        Add or remove .faq-item blocks as needed.
+        Structure: .faq-question > text + chevron | .faq-answer > .faq-answer-inner > text
+      -->
+
+      <!-- FAQ 1 -->
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          <!-- QUESTION 1 — change text here -->
+          Платформа кімге арналған?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <!-- ANSWER 1 — change text here -->
+            Бұл жер — өзін дамытқысы келетін, қаржылық және тұлғалық өсуге мақсатты түрде қадам жасайтын адамдарға арналған. Бастаушылар да, тәжірибелілер де жаңа деңгейге шыға алады.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          <!-- QUESTION 2 — change text here -->
+          Контентке қандай форматта қол жеткізуге болады?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <!-- ANSWER 2 — change text here -->
+            Барлық сабақтар мен материалдар Telegram-бот арқылы жеткізіледі. Ыңғайлы кесте жоқ — өзіңізге ыңғайлы уақытта оқисыз.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          <!-- QUESTION 3 — change text here -->
+          Бот тегін бе, әлде ақылы ма?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <!-- ANSWER 3 — change text here -->
+            Платформаның бірінші деңгейіне тегін кіруге болады. Толық бағдарлама үшін жазылым опциялары бар — барлық ақпаратты ботта таба аласыз.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          <!-- QUESTION 4 — change text here -->
+          Мен телефон нөмірімді неге енгізуім керек?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <!-- ANSWER 4 — change text here -->
+            Нөміріңіз тек байланыс мақсатында сақталады. Спам жіберілмейді, деректер үшінші тарапқа берілмейді. Бұл — сізге жеке жолдама жіберу үшін.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          <!-- QUESTION 5 — change text here -->
+          Нәтиже қанша уақытта көрінеді?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <!-- ANSWER 5 — change text here -->
+            Бұл — жүйелі процесс. Алғашқы апта-ақ ойлаудың өзгеруін сезесіз. Нақты қаржылық және бизнес нәтижелер 1–3 айда байқалады — егер жүйеге ілессеңіз.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          <!-- QUESTION 6 — change text here -->
+          Техникалық мәсele болса кімге хабарласуға болады?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <!-- ANSWER 6 — change text here -->
+            Telegram-ботта «Қолдау» бөлімі бар. Сондай-ақ біздің командамен тікелей хат алмасуға болады — жауап беру уақыты 24 сағат ішінде.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /faq-list -->
+  </div>
+</section>
+
+<!-- ==============================
+     FOOTER
+============================== -->
+<footer>
+  <!-- FOOTER TEXT — change as needed -->
+  <p>© 2025 Жүйелі Даму Платформасы &nbsp;·&nbsp; Барлық құқықтар қорғалған</p>
+</footer>
+
+<!-- ==============================
+     JAVASCRIPT
+============================== -->
+<script>
+  /* --------------------------------------------------
+     CONFIGURATION — edit these values
+  -------------------------------------------------- */
+  // Telegram bot link shown after phone submission
+  const TG_BOT_URL = 'https://t.me/zhenisOrdaFinanceBot/zhenis';
+
+  // Optional: send phone to a webhook (e.g. Google Apps Script, n8n, Make)
+  // Set to empty string '' to skip
+  const WEBHOOK_URL = '';
+
+  /* --------------------------------------------------
+     PHONE VALIDATION
+  -------------------------------------------------- */
+  function normalizePhone(raw) {
+    return raw.replace(/\D/g, '');
+  }
+
+  function isValidPhone(raw) {
+    const digits = normalizePhone(raw);
+    // accept KZ/RU format: starts with 7 or 8, total 11 digits
+    // or international: 10-15 digits
+    return /^[78]\d{10}$/.test(digits) || /^\d{10,15}$/.test(digits);
+  }
+
+  /* --------------------------------------------------
+     FORMAT INPUT AS USER TYPES
+  -------------------------------------------------- */
+  const phoneInput = document.getElementById('phoneInput');
+  const phoneError = document.getElementById('phoneError');
+  const submitBtn  = document.getElementById('submitBtn');
+
+  phoneInput.addEventListener('input', function () {
+    phoneError.classList.remove('visible');
+    phoneInput.classList.remove('error');
+  });
+
+  phoneInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSubmit();
+  });
+
+  /* --------------------------------------------------
+     FORM SUBMIT HANDLER
+  -------------------------------------------------- */
+  function handleSubmit() {
+    const val = phoneInput.value.trim();
+
+    if (!isValidPhone(val)) {
+      phoneInput.classList.add('error');
+      phoneError.classList.add('visible');
+      phoneInput.focus();
+      return;
+    }
+
+    // disable button to prevent double submit
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Жіберілуде…';
+
+    const phone = normalizePhone(val);
+
+    // optional: send to webhook
+    if (WEBHOOK_URL) {
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone }),
+      }).catch(() => { /* silent fail */ });
+    }
+
+    // small delay for perceived feedback, then show success
+    setTimeout(showSuccess, 600);
+  }
+
+  /* --------------------------------------------------
+     SHOW SUCCESS STATE
+  -------------------------------------------------- */
+  function showSuccess() {
+    document.getElementById('formInputs').classList.add('hidden');
+    document.getElementById('successState').classList.add('visible');
+
+    // update the TG link (already set in HTML, but updating here too for safety)
+    document.getElementById('tgLink').href = TG_BOT_URL;
+
+    // scroll card into view smoothly
+    document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* --------------------------------------------------
+     FAQ ACCORDION
+  -------------------------------------------------- */
+  function toggleFaq(btn) {
+    const item   = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    // close all others
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-answer').style.maxHeight = null;
+      el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  /* --------------------------------------------------
+     SCROLL REVEAL
+  -------------------------------------------------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer  = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // stagger siblings slightly
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 60 * (Array.from(entry.target.parentElement.children).indexOf(entry.target) % 4));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  /* --------------------------------------------------
+     LAZY-LOAD VIDEO IFRAME
+     (avoids slowing down initial page paint)
+  -------------------------------------------------- */
+  const iframe = document.querySelector('iframe[data-src]');
+  if (iframe) {
+    // load iframe when user scrolls near it
+    const vidObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        iframe.src = iframe.dataset.src;
+        document.getElementById('vidPlaceholder').style.display = 'none';
+        vidObserver.disconnect();
+      }
+    }, { rootMargin: '200px' });
+    vidObserver.observe(iframe);
+  }
+</script>
+
+</body>
+</html>
