@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!-- PAGE TITLE — change as needed -->
+<title>Платформаны тану — Жүйелі Даму</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css"/>
+
+<style>
+  /* ── Video-page extras ── */
+  .page-top{
+    padding-top:80px;
+    padding-bottom:0;
+  }
+  .section-gap{margin-bottom:56px}
+  .section-gap-sm{margin-bottom:40px}
+  .sec-title{
+    font-size:clamp(1.4rem,5.5vw,2rem);
+    font-weight:800;
+    line-height:1.18;
+    color:var(--cream);
+    text-align:center;
+    margin-bottom:32px;
+  }
+  .content-block{position:relative;z-index:1}
+
+  /* back link */
+  .back-link{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:0.75rem;font-weight:700;
+    letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--cream-3);
+    margin-bottom:28px;
+    transition:color var(--t);
+  }
+  .back-link:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <span class="logo">Жүйелі Даму</span>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════ -->
+<main class="page-top content-block">
+<div class="wrap">
+
+  <!-- back to main -->
+  <a href="index.html" class="back-link reveal">
+    ← Басты бетке
+  </a>
+
+  <!-- ─────────────────────────────────────
+       TOP PILLARS — 3 compact pills
+  ───────────────────────────────────── -->
+  <div class="pillars reveal d1">
+    <!-- PILLAR LABELS — change text here -->
+    <div class="pillar-pill">Ойлау</div>
+    <div class="pillar-pill">Қаржы</div>
+    <div class="pillar-pill">Лидерлік</div>
+  </div>
+
+  <!-- ─────────────────────────────────────
+       VIDEO SECTION
+       REPLACE: set data-src to your YouTube embed URL
+         e.g. https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1
+       OR: remove iframe, uncomment <video> tag for self-hosted MP4
+  ───────────────────────────────────── -->
+  <div class="video-section reveal d2">
+    <div class="video-label-row">
+      <div class="video-label-line"></div>
+      <!-- VIDEO LABEL — change text here -->
+      <span class="video-label-text">Платформа туралы</span>
+      <div class="video-label-line"></div>
+    </div>
+
+    <div class="video-outer">
+
+      <!-- VIDEO HERE -->
+      <!--
+        YOUTUBE: set data-src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1&color=white"
+        SELF-HOSTED MP4: remove iframe below, uncomment <video> block
+      -->
+      <iframe
+        src="about:blank"
+        data-src="https://www.youtube.com/embed/VIDEO_ID_HERE?rel=0&modestbranding=1&color=white"
+        title="Платформа туралы бейнероллик"
+        allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+
+      <!--
+      <video controls preload="metadata" poster="poster.jpg">
+        <source src="https://your-domain.com/video.mp4" type="video/mp4"/>
+      </video>
+      -->
+
+      <div class="video-ph" id="vidPh">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>Бейнероллик жүктелуде…</span>
+      </div>
+    </div>
+  </div><!-- /video-section -->
+
+  <!-- ─────────────────────────────────────
+       FAQ ACCORDION
+       Edit question/answer text freely.
+       Add or remove .faq-item blocks as needed.
+  ───────────────────────────────────── -->
+  <div class="section-gap reveal">
+    <p class="eyebrow" style="display:block;text-align:center;margin-bottom:6px">Сұрақтар</p>
+    <h2 class="sec-title">Жиі қойылатын сұрақтар</h2>
+
+    <div class="faq-list">
+
+      <!-- FAQ 1 — change question and answer -->
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+          Платформа кімге арналған?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            Бұл жер — өзін дамытқысы келетін, қаржылық және тұлғалық өсуге мақсатты түрде қадам жасайтын адамдарға арналған. Бастаушылар да, тәжірибелілер де жаңа деңгейге шыға алады.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 2 — change question and answer -->
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+          Контентке қандай форматта қол жеткізуге болады?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            Барлық сабақтар мен материалдар Telegram-бот арқылы жеткізіледі. Ыңғайлы кесте жоқ — өзіңізге ыңғайлы уақытта оқисыз.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 3 — change question and answer -->
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+          Бот тегін бе, әлде ақылы ма?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            Платформаның бірінші деңгейіне тегін кіруге болады. Толық бағдарлама үшін жазылым опциялары бар — барлық ақпаратты ботта таба аласыз.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 4 — change question and answer -->
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+          Мен телефон нөмірімді неге енгізуім керек?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            Нөміріңіз тек байланыс мақсатында сақталады. Спам жіберілмейді, деректер үшінші тарапқа берілмейді. Бұл — сізге жеке жолдама жіберу үшін.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 5 — change question and answer -->
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+          Нәтиже қанша уақытта көрінеді?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            Бұл — жүйелі процесс. Алғашқы апта-ақ ойлаудың өзгеруін сезесіз. Нақты қаржылық және бизнес нәтижелер 1–3 айда байқалады — егер жүйеге ілессеңіз.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 6 — change question and answer -->
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+          Техникалық мәселе болса кімге хабарласуға болады?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            Telegram-ботта «Қолдау» бөлімі бар. Сондай-ақ біздің командамен тікелей хат алмасуға болады — жауап беру уақыты 24 сағат ішінде.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /faq-list -->
+  </div>
+
+  <!-- ─────────────────────────────────────
+       PHONE FORM
+  ───────────────────────────────────── -->
+  <div class="section-gap reveal">
+    <div class="form-wrap">
+
+      <!-- FORM FIELDS STATE -->
+      <div class="form-fields" id="formFields">
+
+        <!-- FORM TITLE — change text here -->
+        <h2 class="form-title">Ортаға қосылыңыз</h2>
+
+        <!-- FORM DESC — change text here -->
+        <p class="form-desc">
+          Нөміріңізді енгізіңіз — бірінші қадамды<br/>Telegram арқылы жіберейік.
+        </p>
+
+        <div class="phone-field">
+          <input
+            type="tel"
+            id="phoneInput"
+            placeholder="+7 (777) 777-77-77"
+            inputmode="tel"
+            autocomplete="tel"
+            maxlength="18"
+          />
+          <div class="field-err" id="phoneErr">
+            Телефон нөмірін дұрыс енгізіңіз
+          </div>
+        </div>
+
+        <!-- CTA BUTTON TEXT — change as needed -->
+        <button class="btn-primary" id="submitBtn" onclick="handleSubmit()">
+          Ортаға қосылу →
+        </button>
+
+        <p class="privacy">
+          <!-- INSERT GOOGLE SCRIPT WEBHOOK note for developer -->
+          Нөміріңіз спам үшін қолданылмайды. Тек байланыс мақсатында.
+        </p>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-block" id="successBlock">
+        <div class="success-icon">✦</div>
+
+        <!-- SUCCESS TITLE — change text here -->
+        <h3 class="success-title">Рахмет!</h3>
+
+        <!-- SUCCESS DESC — change text here -->
+        <p class="success-sub">
+          Енді Telegram-ботқа өтіп,<br/>жүйелі дамуды бастауға болады.
+        </p>
+
+        <!--
+          TELEGRAM BOT LINK — change href here
+          Current: t.me/zhenisOrdaFinanceBot/zhenis
+        -->
+        <a
+          href="https://t.me/zhenisOrdaFinanceBot/zhenis"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-outline"
+          id="tgBtn"
+        >
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/>
+          </svg>
+          Telegram-ботқа өту
+        </a>
+      </div>
+
+    </div><!-- /form-wrap -->
+  </div>
+
+</div><!-- /wrap -->
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>© 2025 Жүйелі Даму &nbsp;·&nbsp; Барлық құқықтар қорғалған</p>
+</footer>
+
+<script>
+  /* ══════════════════════════════════════════════
+     CONFIGURATION — edit these two values
+  ══════════════════════════════════════════════ */
+
+  // INSERT GOOGLE SCRIPT WEBHOOK — paste your Apps Script exec URL here
+  const WEBHOOK_URL = '';
+
+  // TELEGRAM BOT LINK — already set in the anchor above, mirrored here for JS use
+  const TG_BOT_URL = 'https://t.me/zhenisOrdaFinanceBot/zhenis';
+
+
+  /* ── Phone mask ── */
+  const phoneInput = document.getElementById('phoneInput');
+  const phoneErr   = document.getElementById('phoneErr');
+  const submitBtn  = document.getElementById('submitBtn');
+
+  phoneInput.addEventListener('input', applyMask);
+  phoneInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); });
+
+  function applyMask() {
+    let raw = phoneInput.value.replace(/\D/g, '');
+
+    // normalise leading 8 → 7
+    if (raw.startsWith('8')) raw = '7' + raw.slice(1);
+    if (!raw.startsWith('7') && raw.length > 0) raw = '7' + raw;
+    raw = raw.slice(0, 11);
+
+    let out = '';
+    if (raw.length === 0) { phoneInput.value = ''; return; }
+    out = '+7';
+    if (raw.length > 1) out += ' (' + raw.slice(1, Math.min(raw.length, 4));
+    if (raw.length >= 4) out += ') ' + raw.slice(4, Math.min(raw.length, 7));
+    if (raw.length >= 7) out += '-' + raw.slice(7, Math.min(raw.length, 9));
+    if (raw.length >= 9) out += '-' + raw.slice(9, 11);
+
+    phoneInput.value = out;
+    phoneErr.classList.remove('show');
+    phoneInput.classList.remove('err');
+  }
+
+  function getDigits() {
+    return phoneInput.value.replace(/\D/g, '');
+  }
+
+  function isValid() {
+    const d = getDigits();
+    return /^7\d{10}$/.test(d);
+  }
+
+  /* ── Submit ── */
+  function handleSubmit() {
+    if (!isValid()) {
+      phoneInput.classList.add('err');
+      phoneErr.classList.add('show');
+      phoneInput.focus();
+      return;
+    }
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Жіберілуде…';
+
+    const phone = '+' + getDigits();
+
+    // send to webhook if configured
+    if (WEBHOOK_URL) {
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone }),
+      }).catch(() => {});
+    }
+
+    setTimeout(showSuccess, 650);
+  }
+
+  function showSuccess() {
+    document.getElementById('formFields').classList.add('hide');
+    const sb = document.getElementById('successBlock');
+    sb.classList.add('show');
+    document.getElementById('tgBtn').href = TG_BOT_URL;
+    sb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* ── FAQ accordion ── */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const body = item.querySelector('.faq-body');
+    const open = item.classList.contains('open');
+
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-body').style.maxHeight = null;
+      el.querySelector('.faq-btn').setAttribute('aria-expanded','false');
+    });
+
+    if (!open) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+
+  /* ── Scroll reveal ── */
+  const revEls = document.querySelectorAll('.reveal');
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  revEls.forEach(el => revObs.observe(el));
+
+  /* ── Lazy-load video iframe ── */
+  const iframe = document.querySelector('iframe[data-src]');
+  if (iframe) {
+    const vidObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        iframe.src = iframe.dataset.src;
+        const ph = document.getElementById('vidPh');
+        if (ph) ph.style.display = 'none';
+        vidObs.disconnect();
+      }
+    }, { rootMargin: '200px' });
+    vidObs.observe(iframe);
+  }
+</script>
+</body>
+</html>
