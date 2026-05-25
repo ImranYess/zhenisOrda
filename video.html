@@ -371,15 +371,16 @@
     const phone = '+' + getDigits();
 
     // send to webhook if configured
-if (WEBHOOK_URL) {
-  fetch(WEBHOOK_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    body: JSON.stringify({ phone }),
-  }).catch(() => {});
+    if (WEBHOOK_URL) {
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify({ phone }),
+      }).catch(() => {});
+    }
 
-   setTimeout(showSuccess, 650);
-}
+    setTimeout(showSuccess, 650);
+  }
 
 
   function showSuccess() {
