@@ -371,21 +371,16 @@
     const phone = '+' + getDigits();
 
     // send to webhook if configured
-  async function submitPhone(phone) {
-  try {
-    await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      body: JSON.stringify({
-        phone: phone
-      })
-    });
+if (WEBHOOK_URL) {
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone }),
+      }).catch(() => {});
+    }
 
-    window.location.href = 'https://t.me/your_bot_link';
-
-  } catch (error) {
-    alert('Ошибка отправки');
+    setTimeout(showSuccess, 650);
   }
-}
 
   function showSuccess() {
     document.getElementById('formFields').classList.add('hide');
