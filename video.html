@@ -371,7 +371,7 @@
     const phone = '+' + getDigits();
 
     // send to webhook if configured
-if (WEBHOOK_URL) {
+
 await fetch(WEBHOOK_URL, {
   method: 'POST',
   headers: {
@@ -381,7 +381,7 @@ await fetch(WEBHOOK_URL, {
     phone: phone,
     secret: 'my_secret_key_228'
   })
-});
+
 
   function showSuccess() {
     document.getElementById('formFields').classList.add('hide');
