@@ -377,6 +377,8 @@ if (WEBHOOK_URL) {
     mode: 'no-cors',
     body: JSON.stringify({ phone }),
   }).catch(() => {});
+
+   setTimeout(showSuccess, 650);
 }
 
 
