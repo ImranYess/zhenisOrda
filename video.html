@@ -372,14 +372,18 @@
 
     // send to webhook if configured
 if (WEBHOOK_URL) {
-      fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone }),
-      }).catch(() => {});
-    }
+async function submitPhone(phone) {
 
-    setTimeout(showSuccess, 650);
+  await fetch(WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify({
+      phone: phone
+    })
+  });
+
+  window.location.href = TELEGRAM_BOT_LINK;
+}
   }
 
 
