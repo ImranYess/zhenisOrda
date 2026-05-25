@@ -372,15 +372,16 @@
 
     // send to webhook if configured
 if (WEBHOOK_URL) {
-      fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone }),
-      }).catch(() => {});
-    }
-
-    setTimeout(showSuccess, 650);
-  }
+await fetch(WEBHOOK_URL, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    phone: phone,
+    secret: 'my_secret_key_228'
+  })
+});
 
   function showSuccess() {
     document.getElementById('formFields').classList.add('hide');
