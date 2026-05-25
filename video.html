@@ -372,17 +372,12 @@
 
     // send to webhook if configured
 if (WEBHOOK_URL) {
-if (WEBHOOK_URL) {
-      fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone }),
-      }).catch(() => {});
-    }
-
-    setTimeout(showSuccess, 650);
-  }
-  }
+  fetch(WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify({ phone }),
+  }).catch(() => {});
+}
 
 
   function showSuccess() {
